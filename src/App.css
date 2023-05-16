@@ -1,0 +1,36 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+h1 {
+  font-weight: 900 !important;
+  -webkit-text-fill-color: #808080;
+}
+
+.container {
+  align-content: center;
+  display: flex;
+}
+
+.card {
+  padding: 1em;
+}
+
+.card-title {
+  -webkit-text-fill-color: #0000ff;
+  font-weight: 700 !important;
+  font-size: 40px !important;
+  text-align: center !important;
+}
+
+.card-type {
+  font-weight: 800;
+  font-size: 25px !important;
+}
+
+.read-the-docs {
+  color: #888;
+}
