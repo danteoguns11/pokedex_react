@@ -4,7 +4,7 @@ import { Pokecard } from './Pokecard'
 
 export function Pokedex({ props }) {
 
-    let [pokemons, setPokemons] = useState([]);
+    let [pokemons, setPokemons] = useState("");
 
     useEffect(() => {
         fetchPokemons()
@@ -15,7 +15,7 @@ export function Pokedex({ props }) {
             const response = await fetch("https://pokeapi.co/api/v2/pokemon")
             const pokemonsData = await response.json()
             const urls = pokemonsData.results?.map(result => result.url);
-            setPokemons(urls ?? [])
+            setPokemons(urls ?? "")
         } catch (error) {
             console.log('error message:', error);
             setPokemons(null);

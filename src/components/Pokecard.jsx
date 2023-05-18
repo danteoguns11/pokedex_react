@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 export function Pokecard({ pokemonUrl }) {
 
-    const [selectedPokemons, setSelectedPokemons] = useState([]);
+    const [selectedPokemons, setSelectedPokemons] = useState("");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -16,16 +16,17 @@ export function Pokecard({ pokemonUrl }) {
         try {
             const response = await fetch(pokemonUrl)
             const pokemonData = await response.json()
-            setSelectedPokemons([pokemonData])
+            setSelectedPokemons(pokemonData)
         } catch (error) {
             console.log('error message:', error);
             setSelectedPokemons(null);
         }
     }
 
-    // console.log('fetch id:', selectedPokemons?.[0]?.id)
+    // console.log("pokecard", selectedPokemons.id)
+
     const selectPokemon = () => {
-        navigate(`/details/${selectedPokemons?.[0]?.id}`);
+        navigate(`/details/${selectedPokemons.id}`);
     };
 
     return (
@@ -34,12 +35,13 @@ export function Pokecard({ pokemonUrl }) {
                 {selectedPokemons && (
                     <>
                         <div className='mb-2 justify-content-between'>
-                            <Card.Title>{selectedPokemons?.[0]?.name}</Card.Title>
+                            <Card.Title>{selectedPokemons.name}</Card.Title>
                         </div>
-                        <Card.Img src={selectedPokemons?.[0]?.sprites?.front_default} />
-                        <Card.Text className='card-type'>Type: {selectedPokemons?.[0]?.types?.[0]?.type?.name}</Card.Text>
-                        <Card.Text className='card-type'>Height: {selectedPokemons?.[0]?.height}</Card.Text>
-                        <Card.Text className='card-type'>Weight: {selectedPokemons?.[0]?.weight}</Card.Text>
+
+                        <Card.Img src={selectedPokemons.sprites.front_default} />
+                        <Card.Text className='card-type'>Type: {selectedPokemons.types?.[0]?.type?.name}</Card.Text>
+                        <Card.Text className='card-type'>Height: {selectedPokemons.height}</Card.Text>
+                        <Card.Text className='card-type'>Weight: {selectedPokemons.weight}</Card.Text>
 
 
                         <Accordion>
@@ -47,7 +49,7 @@ export function Pokecard({ pokemonUrl }) {
                                 <Accordion.Header>Top Abilities</Accordion.Header>
                                 <Accordion.Body>
                                     <ListGroup as="ol" numbered>
-                                        {selectedPokemons?.[0]?.abilities?.map((abData, abIndex) =>
+                                        {selectedPokemons.abilities?.map((abData, abIndex) =>
                                             <ListGroup.Item key={abIndex} as="li">{abData.ability.name}</ListGroup.Item>
                                         )}
                                     </ListGroup>
@@ -57,7 +59,7 @@ export function Pokecard({ pokemonUrl }) {
                                 <Accordion.Header>Top 10 Moves</Accordion.Header>
                                 <Accordion.Body>
                                     <ListGroup as="ol" numbered>
-                                        {selectedPokemons?.[0]?.moves?.slice(0, 10).map((movesData, moveIndex) =>
+                                        {selectedPokemons.moves?.slice(0, 10).map((movesData, moveIndex) =>
                                             <ListGroup.Item key={moveIndex} as="li">{movesData.move.name}</ListGroup.Item>
                                         )}
                                     </ListGroup>
@@ -65,7 +67,7 @@ export function Pokecard({ pokemonUrl }) {
                             </Accordion.Item>
                         </Accordion>
 
-                        <Link to={`/details/${selectedPokemons?.[0]?.id}`}>
+                        <Link to={`/details/${selectedPokemons.id}`}>
                             <Button
                                 className='mt-auto font-weight-bold'
                                 variant='success'

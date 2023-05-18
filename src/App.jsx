@@ -4,7 +4,10 @@ import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import { Pokedex } from './components/Pokedex'
-import { ViewPokecard } from './components/ViewPokecard'
+import { Pokecard } from './components/Pokecard'
+import { PokeForm } from './components/PokeFrom';
+import { ViewPokecard } from './components/ViewPokecard';
+
 
 function App() {
   return (
@@ -13,10 +16,18 @@ function App() {
 
       <Routes>
         <Route path="/">
-          <Route index element={<Pokedex />} />
+          <Route index element={<PokeForm />} />
           <Route path="/details/:pokemonId" element={<ViewPokecard />} />
         </Route>
       </Routes>
+
+      {/* <Routes>
+        <Route path="/">
+          <Route index element={<Pokedex />} />
+          <Route path="/details/:pokemonId" element={<Pokecard />} />
+          <Route path="/form" element={<PokeForm />} />
+        </Route>
+      </Routes> */}
     </>
   )
 }

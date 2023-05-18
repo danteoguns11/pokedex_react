@@ -19,6 +19,12 @@ h1 {
   padding: 1em;
 }
 
+.card-img-top {
+  background-color: rgb(215,
+      249,
+      241)
+}
+
 .card-title {
   -webkit-text-fill-color: #0000ff;
   font-weight: 700 !important;
