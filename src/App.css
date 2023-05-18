@@ -3,11 +3,23 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  width: 100vw;
+}
+
+#body {
+  background-image: url("https://cdn.dribbble.com/users/5621307/screenshots/14102635/media/71cf4697a032080dc7c76289e8de450e.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  max-width: 100vw;
+  background-attachment: fixed;
 }
 
 h1 {
   font-weight: 900 !important;
-  -webkit-text-fill-color: #808080;
+  -webkit-text-fill-color: #ffffff;
+  padding-bottom: 10px;
 }
 
 .container {
@@ -20,9 +32,11 @@ h1 {
 }
 
 .card-img-top {
-  background-color: rgb(215,
-      249,
-      241)
+  background-color: rgb(215, 249, 241)
+}
+
+.img-sm {
+  width: 35% !important;
 }
 
 .card-title {
@@ -39,4 +53,20 @@ h1 {
 
 .read-the-docs {
   color: #888;
+}
+
+form {
+  display: flex !important;
+  justify-content: space-evenly;
+  padding-bottom: 25px;
+
+}
+
+.form-control {
+  width: 40% !important;
+}
+
+.btn-left {
+  margin-bottom: 25px !important;
+  float: left !important;
 }

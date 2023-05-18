@@ -38,7 +38,7 @@ export function Pokecard({ pokemonUrl }) {
                             <Card.Title>{selectedPokemons.name}</Card.Title>
                         </div>
 
-                        <Card.Img src={selectedPokemons.sprites.front_default} />
+                        <Card.Img className="card-img-top" src={selectedPokemons.sprites.front_default} />
                         <Card.Text className='card-type'>Type: {selectedPokemons.types?.[0]?.type?.name}</Card.Text>
                         <Card.Text className='card-type'>Height: {selectedPokemons.height}</Card.Text>
                         <Card.Text className='card-type'>Weight: {selectedPokemons.weight}</Card.Text>
@@ -69,7 +69,7 @@ export function Pokecard({ pokemonUrl }) {
 
                         <Link to={`/details/${selectedPokemons.id}`}>
                             <Button
-                                className='mt-auto font-weight-bold'
+                                className='mt-4 font-weight-bold'
                                 variant='success'
                                 onClick={selectPokemon}
                             >

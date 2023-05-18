@@ -1,11 +1,9 @@
-import React, { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React from 'react'
+import { Routes, Route } from 'react-router-dom';
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-import { Pokedex } from './components/Pokedex'
-import { Pokecard } from './components/Pokecard'
-import { PokeForm } from './components/PokeFrom';
+import { PokeForm } from './components/PokeForm';
 import { ViewPokecard } from './components/ViewPokecard';
 
 
@@ -20,14 +18,6 @@ function App() {
           <Route path="/details/:pokemonId" element={<ViewPokecard />} />
         </Route>
       </Routes>
-
-      {/* <Routes>
-        <Route path="/">
-          <Route index element={<Pokedex />} />
-          <Route path="/details/:pokemonId" element={<Pokecard />} />
-          <Route path="/form" element={<PokeForm />} />
-        </Route>
-      </Routes> */}
     </>
   )
 }

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { ListGroup, Accordion, Card, Button, Form } from 'react-bootstrap';
-import { Link, useParams, useNavigate } from 'react-router-dom';
-import { FormCard } from './FormCard';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Alert, Button, Form, Container, Row, Col } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { PokeFormCard } from './PokeFormCard';
 import { Pokecard } from './Pokecard';
 
 export function PokeForm({ }) {
@@ -13,6 +12,7 @@ export function PokeForm({ }) {
     const [pokemons, setPokemons] = useState([]);
     const navigate = useNavigate();
     const state = { button: 1 };
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         fetchPokemons();
@@ -32,7 +32,6 @@ export function PokeForm({ }) {
             setLoading(false);
         } catch (error) {
             setLoading(false);
-            console.log(error);
         }
     };
 
@@ -40,16 +39,15 @@ export function PokeForm({ }) {
         try {
             setLoading(true);
             const result = await fetch(`https://pokeapi.co/api/v2/pokemon/${inputText}`);
-            const data = await result.json();
-            setPokemonDetails(data)
+            if (result.status === 404) {
+                setErrorMessage('Pokemon not found!');
+            } else {
+                const data = await result.json();
+                setPokemonDetails(data);
+            }
             setLoading(false);
         } catch (err) {
             setLoading(false);
-            if (err.message === "Unexpected token 'N', \"Not Found\" is not valid JSON") {
-                alert("Pokemon not found!")
-            } else {
-                console.log(err.message)
-            }
         }
     }
 
@@ -61,11 +59,9 @@ export function PokeForm({ }) {
         e.preventDefault();
 
         if (state.button === 1) {
-            console.log("Button 1 clicked!");
             getPokemon();
         }
         if (state.button === 2) {
-            console.log("Button 2 clicked!");
             refreshPage();
         }
     }
@@ -77,7 +73,7 @@ export function PokeForm({ }) {
     return (
         <>
             <Form onSubmit={handleSubmit}>
-                <Form.Label htmlFor="name">Pokemon Name:</Form.Label>
+                <Form.Label className="my-auto" htmlFor="name">Pokemon Name:</Form.Label>
                 <Form.Control
                     type="text"
                     id="name"
@@ -88,14 +84,6 @@ export function PokeForm({ }) {
                     required
                 />
 
-                {/* <input
-                    type="text"
-                    id="name"
-                    value={inputText}
-                    className="pokemon-name"
-                    onChange={updateName}
-                    required
-                /> */}
                 <Button onClick={() => (state.button = 1)}
                     type="submit"
                     className="btn1"
@@ -112,23 +100,27 @@ export function PokeForm({ }) {
             </Form>
 
             {loading && <h2>Loading...</h2>}
-            {
-                pokemonDetails
-                    ? <FormCard pokemonDetails={pokemonDetails} loading={loading} />
-                    : (
-                        <>
-                            <Container>
-                                <Row className='justify-content-center'>
-                                    {pokemons.map((pokemonUrl, index) => (
-                                        <Col xs={3} className='mb-5' key={index}>
-                                            <Pokecard pokemonUrl={pokemonUrl} />
-                                        </Col>
-                                    ))}
-                                </Row>
-                            </Container>
-                        </>
-                    )
-            }
+            {errorMessage && (
+                <Alert variant="danger" onClose={() => setErrorMessage('')} dismissible>
+                    <Alert.Heading>Error!</Alert.Heading>
+                    <p>{errorMessage}</p>
+                </Alert>
+            )}
+            {pokemonDetails ? (
+                <PokeFormCard pokemonDetails={pokemonDetails} loading={loading} />
+            ) : (
+                <>
+                    <Container>
+                        <Row className="justify-content-center">
+                            {pokemons.map((pokemonUrl, index) => (
+                                <Col xs={3} className="mb-5" key={index}>
+                                    <Pokecard pokemonUrl={pokemonUrl} />
+                                </Col>
+                            ))}
+                        </Row>
+                    </Container>
+                </>
+            )}
         </>
     )
 }

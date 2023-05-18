@@ -1,2 +1,2 @@
 export { default as PokeForm } from './PokeForm'
-export { default as FormCard } from './FormCard'
+export { default as PokeFormCard } from './PokeFormCard'

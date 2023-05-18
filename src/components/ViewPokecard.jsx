@@ -22,8 +22,6 @@ export function ViewPokecard({ selectedPokemons }) {
             const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)
             const viewData = await response.json()
             setShowPokemons(viewData)
-            console.log("pokecard Data", showPokemons)
-
         } catch (error) {
             console.log('error message:', error);
             setShowPokemons(null);
@@ -32,6 +30,15 @@ export function ViewPokecard({ selectedPokemons }) {
 
     return (
         <Card className='h-100 shadow-sm bg-light rounded'>
+            <Link to={`/`}>
+                <Button
+                    className='mt-auto font-weight-bold btn-left'
+                    variant='success'
+                    onClick={backBtn}
+                >
+                    Back
+                </Button>
+            </Link>
             <div className="row">
                 <div className="col-sm">
                     {/* <Card.Body> */}
@@ -80,27 +87,17 @@ export function ViewPokecard({ selectedPokemons }) {
                                 <div className="row">
                                     <div className="col-sm">
                                         <Accordion.Body>
-                                            <Card.Img src={showPokemons.sprites.front_shiny} />
+                                            <Card.Img className="card-img-top" src={showPokemons.sprites.front_shiny} />
                                         </Accordion.Body>
                                     </div>
                                     <div className="col-sm">
                                         <Accordion.Body>
-                                            <Card.Img src={showPokemons.sprites.back_shiny} />
+                                            <Card.Img className="card-img-top" src={showPokemons.sprites.back_shiny} />
                                         </Accordion.Body>
                                     </div>
                                 </div>
                             </Accordion.Item>
                         </Accordion>
-
-                        <Link to={`/`}>
-                            <Button
-                                className='mt-auto font-weight-bold'
-                                variant='success'
-                                onClick={backBtn}
-                            >
-                                Back
-                            </Button>
-                        </Link>
                     </>
                 )}
             </Card.Body>
