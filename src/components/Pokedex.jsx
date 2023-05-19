@@ -1,19 +1,37 @@
-import React from 'react'
-import pokemons from '../data.json'
-
+import React, { useState, useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap';
 import { Pokecard } from './Pokecard'
 
-export function Pokedex({ pokemon }) {
+export function Pokedex({ props }) {
+
+    let [pokemons, setPokemons] = useState("");
+
+    useEffect(() => {
+        fetchPokemons()
+    }, [])
+
+    const fetchPokemons = async () => {
+        try {
+            const response = await fetch("https://pokeapi.co/api/v2/pokemon")
+            const pokemonsData = await response.json()
+            const urls = pokemonsData.results?.map(result => result.url);
+            setPokemons(urls ?? "")
+        } catch (error) {
+            console.log('error message:', error);
+            setPokemons(null);
+        }
+    }
+
     return (
-        <Container>
+        < Container >
             <Row className='justify-content-center'>
-                {pokemons.map((pokemon) => (
-                    <Col xs={4} className='mb-5' key={pokemon.id}>
-                        <Pokecard key={pokemon.id} pokemon={pokemon} />
+                {pokemons.map((pokemonUrl, index) => (
+                    <Col xs={3} className='mb-5' key={index}>
+                        <Pokecard pokemonUrl={pokemonUrl} />
                     </Col>
                 ))}
             </Row>
-        </Container>
+        </Container >
     )
 }
+
