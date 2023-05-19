@@ -66,8 +66,8 @@ export function PokeForm({ }) {
         }
     }
 
-    const selectPokemon = () => {
-        navigate(`/details/`);
+    const handleSeeAll = () => {
+        refreshPage();
     };
 
     return (
@@ -90,8 +90,8 @@ export function PokeForm({ }) {
                     value="Search"
                 >Search
                 </Button>
-                <Button onClick={() => (state.button = 2)}
-                    type="submit"
+                <Button
+                    onClick={handleSeeAll}
                     className="btn1"
                     value="See All Pokemons"
                 >
